@@ -1,0 +1,32 @@
+{
+  "dataSources": [
+    "ConData"
+  ],
+  "generator": "@radzen/blazor-server",
+  "https": false,
+  "layouts": [
+    "Login",
+    "Main"
+  ],
+  "logo": "",
+  "name": "CustomMethodBenjamin",
+  "navigation": [
+    "Products",
+    "Product Categories",
+    "ProductSearch"
+  ],
+  "pages": [
+    "Products",
+    "Add Product",
+    "Product Categories",
+    "Edit Product",
+    "Add Product Category",
+    "Edit Product Category",
+    "ProductSearch"
+  ],
+  "serverLang": "cs",
+  "serverProject": true,
+  "serverVersion": "5",
+  "startPage": "Products",
+  "theme": "default"
+}

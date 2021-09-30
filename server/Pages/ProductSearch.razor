@@ -1,0 +1,50 @@
+﻿@page "/product-search"
+@layout MainLayout
+@inherits CustomMethodBenjamin.Pages.ProductSearchComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using CustomMethodBenjamin.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Product Search">
+    </RadzenHeading>
+    <div style="margin-bottom: 1rem" class="row">
+      <div class="col-md-3">
+        <RadzenLabel Component="ProductName" style="width: 100%" Text="Enter The Name Of Product You Want To Search For:">
+        </RadzenLabel>
+      </div>
+      <div class="col-md-9">
+        <RadzenTextBox AutoComplete="false" MaxLength="70" style="width: 100%" @bind-Value="@search" Name="ProductName">
+        </RadzenTextBox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col offset-sm-3">
+        <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Text="Search" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Cancel" Click="@Button1Click">
+        </RadzenButton>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenDataGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@searchResultList" FilterMode="FilterMode.Advanced" TItem="CustomMethodBenjamin.Models.ConData.Product">
+          <Columns>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" Property="ProductID" Title="Product ID">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" Property="ProductName" Title="Product Name">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" FilterProperty="ProductCategory.CategoryName" GroupProperty="ProductCategory.CategoryName" Property="CategoryID" SortProperty="ProductCategory.CategoryName" Title="Product Category">
+              <Template Context="data">
+              @(data.ProductCategory?.CategoryName)
+              </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" Property="UnitPrice" Title="Unit Price">
+            </RadzenDataGridColumn>
+          </Columns>
+        </RadzenDataGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

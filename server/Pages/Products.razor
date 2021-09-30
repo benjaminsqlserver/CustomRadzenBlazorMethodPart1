@@ -1,0 +1,53 @@
+﻿@page "/"
+@page "/products"
+@layout MainLayout
+@inherits CustomMethodBenjamin.Pages.ProductsComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using CustomMethodBenjamin.Models.ConData
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Products">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenSplitButton Icon="get_app" style="margin-left: 10px; margin-bottom: 10px" Text="Export" Click="@Splitbutton0Click">
+          <ChildContent>
+            <RadzenSplitButtonItem Text="Excel" Value="xlsx">
+            </RadzenSplitButtonItem>
+            <RadzenSplitButtonItem Text="CSV" Value="csv">
+            </RadzenSplitButtonItem>
+          </ChildContent>
+        </RadzenSplitButton>
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await grid0.GoToPage(0);await Load();})">
+        </RadzenTextBox>
+        <RadzenDataGrid @ref="grid0" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getProductsResult" TItem="CustomMethodBenjamin.Models.ConData.Product" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" Property="ProductID" Title="Product ID">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" Property="ProductName" Title="Product Name">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" Property="CategoryID" SortProperty="ProductCategory.CategoryName" GroupProperty="ProductCategory.CategoryName" FilterProperty="ProductCategory.CategoryName" Title="Product Category">
+              <Template Context="data">
+              @(data.ProductCategory?.CategoryName)
+              </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" Property="UnitPrice" Title="Unit Price">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" Property="Picture" Title="Picture">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="CustomMethodBenjamin.Models.ConData.Product" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="customMethodBenjaminModelsConDataProduct">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, customMethodBenjaminModelsConDataProduct))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenDataGridColumn>
+          </Columns>
+        </RadzenDataGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

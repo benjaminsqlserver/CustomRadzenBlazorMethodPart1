@@ -1,0 +1,174 @@
+{
+  "access": "Everybody",
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Product Search",
+          "type": "heading"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-3",
+              "components": [
+                {
+                  "component": "ProductName",
+                  "name": "ProductNameLabel",
+                  "style": {
+                    "width": "100%"
+                  },
+                  "text": "Enter The Name Of Product You Want To Search For:",
+                  "type": "label"
+                }
+              ],
+              "name": "col0",
+              "type": "col"
+            },
+            {
+              "class": "col-md-9",
+              "components": [
+                {
+                  "autoComplete": false,
+                  "maxLength": 70,
+                  "name": "ProductName",
+                  "style": {
+                    "width": "100%"
+                  },
+                  "type": "textbox",
+                  "value": "${search}",
+                  "valueType": "string"
+                }
+              ],
+              "name": "col1",
+              "type": "col"
+            }
+          ],
+          "name": "row0",
+          "style": {
+            "marginBottom": "1rem"
+          },
+          "type": "row"
+        },
+        {
+          "components": [
+            {
+              "class": "col offset-sm-3",
+              "components": [
+                {
+                  "buttonStyle": "primary",
+                  "buttonType": "submit",
+                  "events": {
+                    "click": [
+                      {
+                        "code": "await SearchForProductAsync();",
+                        "type": "execute"
+                      }
+                    ]
+                  },
+                  "icon": "",
+                  "name": "button0",
+                  "text": "Search",
+                  "type": "button"
+                },
+                {
+                  "buttonStyle": "light",
+                  "events": {
+                    "click": [
+                      {
+                        "code": "await ResetFormAsync();",
+                        "type": "execute"
+                      }
+                    ]
+                  },
+                  "name": "button1",
+                  "style": {
+                    "marginLeft": "1rem"
+                  },
+                  "text": "Cancel",
+                  "type": "button"
+                }
+              ],
+              "name": "col2",
+              "type": "col"
+            }
+          ],
+          "name": "row1",
+          "type": "row"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "allowFiltering": true,
+                  "allowPaging": true,
+                  "allowSorting": true,
+                  "columns": [
+                    {
+                      "property": "ProductID",
+                      "title": "Product ID"
+                    },
+                    {
+                      "property": "ProductName",
+                      "title": "Product Name"
+                    },
+                    {
+                      "filterProperty": "ProductCategory.CategoryName",
+                      "groupProperty": "ProductCategory.CategoryName",
+                      "property": "CategoryID",
+                      "sortProperty": "ProductCategory.CategoryName",
+                      "template": "${data.ProductCategory?.CategoryName}",
+                      "title": "Product Category"
+                    },
+                    {
+                      "property": "UnitPrice",
+                      "title": "Unit Price"
+                    }
+                  ],
+                  "data": "${searchResultList}",
+                  "events": {
+                    "loadData": [],
+                    "rowSelect": []
+                  },
+                  "filterMode": "advanced",
+                  "itemType": "CustomMethodBenjamin.Models.ConData.Product",
+                  "name": "grid0",
+                  "title": "",
+                  "type": "datagrid"
+                }
+              ],
+              "name": "col3",
+              "type": "col"
+            }
+          ],
+          "name": "row2",
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "search",
+        "type": "set",
+        "value": "\"\"",
+        "valueType": "string"
+      },
+      {
+        "name": "searchResultList",
+        "type": "set",
+        "value": "new List<CustomMethodBenjamin.Models.ConData.Product>(){}",
+        "valueType": "IEnumerable<CustomMethodBenjamin.Models.ConData.Product>"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "ProductSearch"
+}
